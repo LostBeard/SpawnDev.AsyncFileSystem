@@ -1,4 +1,5 @@
 ﻿using SpawnDev.BlazorJS.JSObjects;
+using BlazorFile = SpawnDev.BlazorJS.JSObjects.File;
 
 namespace SpawnDev.AsyncFileSystem
 {
@@ -10,7 +11,7 @@ namespace SpawnDev.AsyncFileSystem
         Task Append(string path, FileSystemWriteOptions data);
         Task Append(string path, TypedArray data);
         Task<T> ReadTypedArray<T>(string path) where T : TypedArray;
-        Task<JSObjects.File> ReadFile(string path);
+        Task<BlazorFile> ReadFile(string path);
         Task<ArrayBuffer> ReadArrayBuffer(string path);
         Task<Uint8Array> ReadUint8Array(string path);
         Task Write(string path, ArrayBuffer data);

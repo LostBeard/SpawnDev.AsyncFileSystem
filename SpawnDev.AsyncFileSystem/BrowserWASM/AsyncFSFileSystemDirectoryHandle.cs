@@ -1,6 +1,8 @@
-﻿using SpawnDev.BlazorJS.JSObjects;
+﻿using SpawnDev.BlazorJS;
+using SpawnDev.BlazorJS.JSObjects;
 using SpawnDev.BlazorJS.Toolbox;
 using System.Text.Json;
+using BlazorFile = SpawnDev.BlazorJS.JSObjects.File;
 
 namespace SpawnDev.AsyncFileSystem.BrowserWASM
 {
@@ -558,7 +560,6 @@ namespace SpawnDev.AsyncFileSystem.BrowserWASM
         /// Read the data from the file as T
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="_this"></param>
         /// <param name="path"></param>
         /// <param name="jsonSerializerOptions"></param>
         /// <returns></returns>
@@ -574,7 +575,6 @@ namespace SpawnDev.AsyncFileSystem.BrowserWASM
         /// <summary>
         /// Read the data from the file as a string
         /// </summary>
-        /// <param name="_this"></param>
         /// <param name="path"></param>
         /// <returns></returns>
         public async Task<string> ReadText(string path)
@@ -588,7 +588,6 @@ namespace SpawnDev.AsyncFileSystem.BrowserWASM
         /// <summary>
         /// Read the data from the file as a Stream
         /// </summary>
-        /// <param name="_this"></param>
         /// <param name="path"></param>
         /// <returns></returns>
         public async Task<Stream> ReadStream(string path)
@@ -602,7 +601,6 @@ namespace SpawnDev.AsyncFileSystem.BrowserWASM
         /// <summary>
         /// Read the data from the file as a byte array
         /// </summary>
-        /// <param name="_this"></param>
         /// <param name="path"></param>
         /// <returns></returns>
         public async Task<byte[]> ReadBytes(string path)
@@ -616,7 +614,6 @@ namespace SpawnDev.AsyncFileSystem.BrowserWASM
         /// <summary>
         /// Read the data from the file as an ArrayBuffer
         /// </summary>
-        /// <param name="_this"></param>
         /// <param name="path"></param>
         /// <returns></returns>
         public async Task<ArrayBuffer> ReadArrayBuffer(string path)
@@ -630,7 +627,6 @@ namespace SpawnDev.AsyncFileSystem.BrowserWASM
         /// <summary>
         /// Returns the file as a Uint8Array
         /// </summary>
-        /// <param name="_this"></param>
         /// <param name="path"></param>
         /// <returns></returns>
         /// <exception cref="FileNotFoundException"></exception>
@@ -646,7 +642,6 @@ namespace SpawnDev.AsyncFileSystem.BrowserWASM
         /// Returns the file as a TypedArray
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="_this"></param>
         /// <param name="path"></param>
         /// <returns></returns>
         /// <exception cref="FileNotFoundException"></exception>
@@ -662,11 +657,10 @@ namespace SpawnDev.AsyncFileSystem.BrowserWASM
         /// <summary>
         /// Read the data from the file as File
         /// </summary>
-        /// <param name="_this"></param>
         /// <param name="path"></param>
         /// <returns></returns>
         /// <exception cref="FileNotFoundException"></exception>
-        public async Task<JSObjects.File> ReadFile(string path)
+        public async Task<BlazorFile> ReadFile(string path)
         {
             using var fileHandle = await Root!.GetPathFileHandle(path, false);
             if (fileHandle == null) throw new FileNotFoundException();
