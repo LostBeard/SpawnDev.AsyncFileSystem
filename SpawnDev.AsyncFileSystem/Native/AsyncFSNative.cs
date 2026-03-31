@@ -7,10 +7,12 @@ namespace SpawnDev.AsyncFileSystem.Native
     {
         /// <summary>
         /// Default base path for native file system storage.
-        /// Uses LocalApplicationData/SpawnDev (e.g., %LOCALAPPDATA%/SpawnDev on Windows).
+        /// Uses LocalApplicationData/{AppName} so each app gets its own folder.
+        /// e.g., %LOCALAPPDATA%/MyApp on Windows, ~/.local/share/MyApp on Linux.
         /// </summary>
         public static string DefaultBasePath => Path.Combine(
-            Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "SpawnDev");
+            Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+            AppDomain.CurrentDomain.FriendlyName);
 
         public event EventHandler<FileSystemChangeEventArgs> FileSystemChanged;
 
