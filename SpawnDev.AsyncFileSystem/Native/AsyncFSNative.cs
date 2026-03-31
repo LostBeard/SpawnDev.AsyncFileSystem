@@ -5,9 +5,32 @@ namespace SpawnDev.AsyncFileSystem.Native
 {
     public class AsyncFSNative : IAsyncFS
     {
+        /// <summary>
+        /// Default base path for native file system storage.
+        /// Uses LocalApplicationData/SpawnDev (e.g., %LOCALAPPDATA%/SpawnDev on Windows).
+        /// </summary>
+        public static string DefaultBasePath => Path.Combine(
+            Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "SpawnDev");
+
         public event EventHandler<FileSystemChangeEventArgs> FileSystemChanged;
 
-        public string BasePath { get; private set; }
+        private string _basePath = "";
+
+        /// <summary>
+        /// Root directory for file operations. Can be changed during app startup
+        /// (e.g., by a settings service) before other services use the file system.
+        /// The directory is created automatically if it doesn't exist.
+        /// </summary>
+        public string BasePath
+        {
+            get => _basePath;
+            set
+            {
+                if (!Directory.Exists(value))
+                    Directory.CreateDirectory(value);
+                _basePath = value;
+            }
+        }
 
         public static AsyncFSNative Create(string basePath, bool createIfNotExists = false)
         {
@@ -17,8 +40,24 @@ namespace SpawnDev.AsyncFileSystem.Native
             }
             return new AsyncFSNative(basePath);
         }
-        public AsyncFSNative(string basePath)
+
+        /// <summary>
+        /// Creates an AsyncFSNative with the default base path (LocalApplicationData/SpawnDev).
+        /// The directory is created if it doesn't exist.
+        /// </summary>
+        public AsyncFSNative() : this(DefaultBasePath, createIfNotExists: true) { }
+
+        /// <summary>
+        /// Creates an AsyncFSNative with the specified base path.
+        /// </summary>
+        /// <param name="basePath">Root directory for file operations.</param>
+        /// <param name="createIfNotExists">If true, creates the directory if it doesn't exist.</param>
+        public AsyncFSNative(string basePath, bool createIfNotExists = false)
         {
+            if (createIfNotExists && !Directory.Exists(basePath))
+            {
+                Directory.CreateDirectory(basePath);
+            }
             if (!Directory.Exists(basePath))
             {
                 throw new DirectoryNotFoundException(nameof(basePath));
