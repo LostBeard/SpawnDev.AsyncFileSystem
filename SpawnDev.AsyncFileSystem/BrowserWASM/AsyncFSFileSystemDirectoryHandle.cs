@@ -164,7 +164,6 @@ namespace SpawnDev.AsyncFileSystem.BrowserWASM
         /// <summary>
         /// Returns the FileSystemFileHandle names in the given relative path
         /// </summary>
-        /// <param name="_this"></param>
         /// <param name="path"></param>
         /// <returns></returns>
         public async Task<List<string>> GetFiles(string path)
@@ -179,7 +178,6 @@ namespace SpawnDev.AsyncFileSystem.BrowserWASM
         /// <summary>
         /// Returns true if the path exists
         /// </summary>
-        /// <param name="_this"></param>
         /// <param name="path"></param>
         /// <returns></returns>
         public async Task<bool> Exists(string path)
@@ -190,7 +188,6 @@ namespace SpawnDev.AsyncFileSystem.BrowserWASM
         /// <summary>
         /// Returns true if a directory exists at the given path
         /// </summary>
-        /// <param name="_this"></param>
         /// <param name="path"></param>
         /// <returns></returns>
         public async Task<bool> DirectoryExists(string path)
@@ -201,7 +198,6 @@ namespace SpawnDev.AsyncFileSystem.BrowserWASM
         /// <summary>
         /// Returns true if a file exists at the given path
         /// </summary>
-        /// <param name="_this"></param>
         /// <param name="path"></param>
         /// <returns></returns>
         public async Task<bool> FileExists(string path)
@@ -212,7 +208,6 @@ namespace SpawnDev.AsyncFileSystem.BrowserWASM
         /// <summary>
         /// Creates the given path or throws an exception
         /// </summary>
-        /// <param name="_this"></param>
         /// <param name="path"></param>
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
@@ -261,7 +256,6 @@ namespace SpawnDev.AsyncFileSystem.BrowserWASM
         /// <summary>
         /// Removes the entry at the given relative path
         /// </summary>
-        /// <param name="_this"></param>
         /// <param name="path"></param>
         /// <param name="recursive"></param>
         /// <returns></returns>
@@ -302,7 +296,6 @@ namespace SpawnDev.AsyncFileSystem.BrowserWASM
         /// <summary>
         /// Write the data to the file, the file will be created if it does not exist
         /// </summary>
-        /// <param name="_this"></param>
         /// <param name="path"></param>
         /// <param name="data"></param>
         /// <returns></returns>
@@ -317,7 +310,6 @@ namespace SpawnDev.AsyncFileSystem.BrowserWASM
         /// <summary>
         /// Write the data to the file, the file will be created if it does not exist
         /// </summary>
-        /// <param name="_this"></param>
         /// <param name="path"></param>
         /// <param name="data"></param>
         /// <returns></returns>
@@ -332,7 +324,6 @@ namespace SpawnDev.AsyncFileSystem.BrowserWASM
         /// <summary>
         /// Write the data to the file, the file will be created if it does not exist
         /// </summary>
-        /// <param name="_this"></param>
         /// <param name="path"></param>
         /// <param name="data"></param>
         /// <returns></returns>
@@ -345,7 +336,6 @@ namespace SpawnDev.AsyncFileSystem.BrowserWASM
         /// <summary>
         /// Write the data to the file, the file will be created if it does not exist
         /// </summary>
-        /// <param name="_this"></param>
         /// <param name="path"></param>
         /// <param name="data"></param>
         /// <returns></returns>
@@ -360,7 +350,6 @@ namespace SpawnDev.AsyncFileSystem.BrowserWASM
         /// <summary>
         /// Write the data to the file, the file will be created if it does not exist
         /// </summary>
-        /// <param name="_this"></param>
         /// <param name="path"></param>
         /// <param name="data"></param>
         /// <returns></returns>
@@ -375,7 +364,6 @@ namespace SpawnDev.AsyncFileSystem.BrowserWASM
         /// <summary>
         /// Write the data to the file, the file will be created if it does not exist
         /// </summary>
-        /// <param name="_this"></param>
         /// <param name="path"></param>
         /// <param name="data"></param>
         /// <returns></returns>
@@ -390,7 +378,6 @@ namespace SpawnDev.AsyncFileSystem.BrowserWASM
         /// <summary>
         /// Write the data to the file, the file will be created if it does not exist
         /// </summary>
-        /// <param name="_this"></param>
         /// <param name="path"></param>
         /// <param name="data"></param>
         /// <returns></returns>
@@ -405,7 +392,6 @@ namespace SpawnDev.AsyncFileSystem.BrowserWASM
         /// <summary>
         /// Write the data to the file, the file will be created if it does not exist
         /// </summary>
-        /// <param name="_this"></param>
         /// <param name="path"></param>
         /// <param name="data"></param>
         /// <param name="jsonSerializerOptions"></param>
@@ -422,7 +408,6 @@ namespace SpawnDev.AsyncFileSystem.BrowserWASM
         /// <summary>
         /// Write the data to the file, the file will be created if it does not exist
         /// </summary>
-        /// <param name="_this"></param>
         /// <param name="path"></param>
         /// <param name="data"></param>
         /// <returns></returns>
@@ -439,7 +424,6 @@ namespace SpawnDev.AsyncFileSystem.BrowserWASM
         /// <summary>
         /// Append data to the file, the file will be created if it does not exist
         /// </summary>
-        /// <param name="_this"></param>
         /// <param name="path"></param>
         /// <param name="data"></param>
         /// <returns></returns>
@@ -455,7 +439,6 @@ namespace SpawnDev.AsyncFileSystem.BrowserWASM
         /// <summary>
         /// Append data to the file, the file will be created if it does not exist
         /// </summary>
-        /// <param name="_this"></param>
         /// <param name="path"></param>
         /// <param name="data"></param>
         /// <returns></returns>
@@ -471,7 +454,6 @@ namespace SpawnDev.AsyncFileSystem.BrowserWASM
         /// <summary>
         /// Append data to the file, the file will be created if it does not exist
         /// </summary>
-        /// <param name="_this"></param>
         /// <param name="path"></param>
         /// <param name="data"></param>
         /// <returns></returns>
@@ -487,7 +469,6 @@ namespace SpawnDev.AsyncFileSystem.BrowserWASM
         /// <summary>
         /// Append data to the file, the file will be created if it does not exist
         /// </summary>
-        /// <param name="_this"></param>
         /// <param name="path"></param>
         /// <param name="data"></param>
         /// <returns></returns>
@@ -509,7 +490,6 @@ namespace SpawnDev.AsyncFileSystem.BrowserWASM
         /// <summary>
         /// Append data to the file, the file will be created if it does not exist
         /// </summary>
-        /// <param name="_this"></param>
         /// <param name="path"></param>
         /// <param name="data"></param>
         /// <returns></returns>
@@ -525,7 +505,6 @@ namespace SpawnDev.AsyncFileSystem.BrowserWASM
         /// <summary>
         /// Append data to the file, the file will be created if it does not exist
         /// </summary>
-        /// <param name="_this"></param>
         /// <param name="path"></param>
         /// <param name="data"></param>
         /// <returns></returns>
@@ -542,7 +521,6 @@ namespace SpawnDev.AsyncFileSystem.BrowserWASM
         /// <summary>
         /// Append data to the file, the file will be created if it does not exist
         /// </summary>
-        /// <param name="_this"></param>
         /// <param name="path"></param>
         /// <param name="data"></param>
         /// <returns></returns>
@@ -586,7 +564,8 @@ namespace SpawnDev.AsyncFileSystem.BrowserWASM
             return ret;
         }
         /// <summary>
-        /// Read the data from the file as a Stream
+        /// Read the data from the file as an ArrayBufferStream Stream.<br/>
+        /// Note: The entire file contents are read into memory. The stream supports synchronous reading.
         /// </summary>
         /// <param name="path"></param>
         /// <returns></returns>
@@ -597,6 +576,20 @@ namespace SpawnDev.AsyncFileSystem.BrowserWASM
             var arrayBuffer = await fileHandle.ReadArrayBuffer();
             var stream = new ArrayBufferStream(arrayBuffer);
             return stream;
+        }
+        /// <summary>
+        /// Read the data from the file as a BlobStream Stream.<br/>
+        /// Note: Read the file from disk asynchronously. Very useful for large files. The stream ONLY supports asynchronous reading.
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        public async Task<Stream> ReadBlobStream(string path)
+        {
+            using var fileHandle = await Root!.GetPathFileHandle(path, false);
+            if (fileHandle == null) throw new FileNotFoundException();
+            var file = await fileHandle.GetFile();
+            var blobStream = new BlobStream(file);
+            return blobStream;
         }
         /// <summary>
         /// Read the data from the file as a byte array
@@ -672,7 +665,6 @@ namespace SpawnDev.AsyncFileSystem.BrowserWASM
         /// <summary>
         /// Returns the path handle or null if it does not exist
         /// </summary>
-        /// <param name="_this"></param>
         /// <param name="path"></param>
         /// <returns></returns>
         public async Task<FileSystemHandle?> GetHandle(string path)
@@ -697,6 +689,12 @@ namespace SpawnDev.AsyncFileSystem.BrowserWASM
             return stream;
         }
 
+        /// <summary>
+        /// Read the data from the file as an ArrayBufferStream Stream.<br/>
+        /// Note: The entire file contents are read into memory. The stream supports synchronous reading.
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
         public async Task<Stream> GetReadStream(string path)
         {
             var stream = await ReadStream(path);
