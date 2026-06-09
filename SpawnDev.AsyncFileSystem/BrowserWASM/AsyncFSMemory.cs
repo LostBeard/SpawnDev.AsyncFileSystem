@@ -16,6 +16,14 @@ namespace SpawnDev.AsyncFileSystem.BrowserWASM
     /// with no dependency on OPFS being initialized/available. Storing the data as browser-managed Blobs
     /// (which the engine can spill to disk) also avoids the WASM-heap OOM that a .NET <c>byte[]</c> store
     /// hits on multi-GB payloads. Ephemeral: contents live only for the lifetime of this instance.
+    /// <para><b>Disposal/concurrency caveat:</b> a read hands back a <see cref="Blob"/>/<see cref="File"/> that
+    /// REFERENCES the stored Blob — it is NOT a deep copy. Disposing that Blob (via <see cref="Remove"/>, an
+    /// overwriting <c>Write</c> to the same path, or <see cref="DisposeAsync"/>) while a read of that path is
+    /// still in flight invalidates the in-flight read and surfaces as a browser <c>NotReadableError</c>. The
+    /// single-threaded WASM model makes non-overlapping access safe, but callers MUST NOT remove/overwrite a
+    /// path while an awaited read of it is outstanding — e.g. do not remove a torrent's pieces while a model
+    /// load is still streaming them. (This is exactly the trap that produced the intermittent SD-Turbo
+    /// NotReadableError: a per-model torrent-removal disposed pieces mid-load.)</para>
     /// </summary>
     public class AsyncFSMemory : IAsyncBrowserFileSystem, IAsyncDisposable
     {
