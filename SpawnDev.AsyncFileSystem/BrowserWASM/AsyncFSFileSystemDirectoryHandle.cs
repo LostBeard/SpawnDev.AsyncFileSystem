@@ -302,9 +302,7 @@ namespace SpawnDev.AsyncFileSystem.BrowserWASM
         public async Task Write(string path, ArrayBuffer data)
         {
             using var fileHandle = await Root!.GetPathFileHandle(path, true);
-            using var stream = await fileHandle!.CreateWritable();
-            await stream.Write(data);
-            await stream.Close();
+            await fileHandle!.Write(data);
             FileSystemChanged?.Invoke(this, new FileSystemChangeEventArgs(FileSystemChangeType.Changed, path));
         }
         /// <summary>
@@ -316,9 +314,7 @@ namespace SpawnDev.AsyncFileSystem.BrowserWASM
         public async Task Write(string path, Blob data)
         {
             using var fileHandle = await Root!.GetPathFileHandle(path, true);
-            using var stream = await fileHandle!.CreateWritable();
-            await stream.Write(data);
-            await stream.Close();
+            await fileHandle!.Write(data);
             FileSystemChanged?.Invoke(this, new FileSystemChangeEventArgs(FileSystemChangeType.Changed, path));
         }
         /// <summary>
@@ -342,9 +338,7 @@ namespace SpawnDev.AsyncFileSystem.BrowserWASM
         public async Task Write(string path, TypedArray data)
         {
             using var fileHandle = await Root!.GetPathFileHandle(path, true);
-            using var stream = await fileHandle!.CreateWritable();
-            await stream.Write(data);
-            await stream.Close();
+            await fileHandle!.Write(data);
             FileSystemChanged?.Invoke(this, new FileSystemChangeEventArgs(FileSystemChangeType.Changed, path));
         }
         /// <summary>
@@ -356,9 +350,7 @@ namespace SpawnDev.AsyncFileSystem.BrowserWASM
         public async Task Write(string path, byte[] data)
         {
             using var fileHandle = await Root!.GetPathFileHandle(path, true);
-            using var stream = await fileHandle!.CreateWritable();
-            await stream.Write(data);
-            await stream.Close();
+            await fileHandle!.Write(data);
             FileSystemChanged?.Invoke(this, new FileSystemChangeEventArgs(FileSystemChangeType.Changed, path));
         }
         /// <summary>
@@ -370,9 +362,7 @@ namespace SpawnDev.AsyncFileSystem.BrowserWASM
         public async Task Write(string path, DataView data)
         {
             using var fileHandle = await Root!.GetPathFileHandle(path, true);
-            using var stream = await fileHandle!.CreateWritable();
-            await stream.Write(data);
-            await stream.Close();
+            await fileHandle!.Write(data);
             FileSystemChanged?.Invoke(this, new FileSystemChangeEventArgs(FileSystemChangeType.Changed, path));
         }
         /// <summary>
@@ -384,9 +374,7 @@ namespace SpawnDev.AsyncFileSystem.BrowserWASM
         public async Task Write(string path, string data)
         {
             using var fileHandle = await Root!.GetPathFileHandle(path, true);
-            using var stream = await fileHandle!.CreateWritable();
-            await stream.Write(data);
-            await stream.Close();
+            await fileHandle!.Write(data);
             FileSystemChanged?.Invoke(this, new FileSystemChangeEventArgs(FileSystemChangeType.Changed, path));
         }
         /// <summary>
@@ -398,11 +386,8 @@ namespace SpawnDev.AsyncFileSystem.BrowserWASM
         /// <returns></returns>
         public async Task WriteJSON(string path, object data, JsonSerializerOptions? jsonSerializerOptions = null)
         {
-            var json = JsonSerializer.Serialize(data, jsonSerializerOptions);
             using var fileHandle = await Root!.GetPathFileHandle(path, true);
-            using var stream = await fileHandle!.CreateWritable();
-            await stream.Write(json);
-            await stream.Close();
+            await fileHandle!.WriteJSON(data, jsonSerializerOptions);
             FileSystemChanged?.Invoke(this, new FileSystemChangeEventArgs(FileSystemChangeType.Changed, path));
         }
         /// <summary>
@@ -414,122 +399,65 @@ namespace SpawnDev.AsyncFileSystem.BrowserWASM
         public async Task Write(string path, FileSystemWriteOptions data)
         {
             using var fileHandle = await Root!.GetPathFileHandle(path, true);
-            using var stream = await fileHandle!.CreateWritable();
-            await stream.Write(data);
-            await stream.Close();
+            await fileHandle!.Write(data);
             FileSystemChanged?.Invoke(this, new FileSystemChangeEventArgs(FileSystemChangeType.Changed, path));
         }
         #endregion
         #region Append
-        /// <summary>
-        /// Append data to the file, the file will be created if it does not exist
-        /// </summary>
-        /// <param name="path"></param>
-        /// <param name="data"></param>
-        /// <returns></returns>
+        /// <inheritdoc/>
         public async Task Append(string path, ArrayBuffer data)
         {
             using var fileHandle = await Root!.GetPathFileHandle(path, true);
-            using var stream = await fileHandle!.CreateWritable(new FileSystemCreateWritableOptions { KeepExistingData = true });
-            await stream.SeekToEnd(fileHandle);
-            await stream.Write(data);
-            await stream.Close();
+            await fileHandle!.Append(data);
             FileSystemChanged?.Invoke(this, new FileSystemChangeEventArgs(FileSystemChangeType.Changed, path));
         }
-        /// <summary>
-        /// Append data to the file, the file will be created if it does not exist
-        /// </summary>
-        /// <param name="path"></param>
-        /// <param name="data"></param>
-        /// <returns></returns>
+        /// <inheritdoc/>
         public async Task Append(string path, Blob data)
         {
             using var fileHandle = await Root!.GetPathFileHandle(path, true);
-            using var stream = await fileHandle!.CreateWritable(new FileSystemCreateWritableOptions { KeepExistingData = true });
-            await stream.SeekToEnd(fileHandle);
-            await stream.Write(data);
-            await stream.Close();
+            await fileHandle!.Append(data);
             FileSystemChanged?.Invoke(this, new FileSystemChangeEventArgs(FileSystemChangeType.Changed, path));
         }
-        /// <summary>
-        /// Append data to the file, the file will be created if it does not exist
-        /// </summary>
-        /// <param name="path"></param>
-        /// <param name="data"></param>
-        /// <returns></returns>
+        /// <inheritdoc/>
         public async Task Append(string path, TypedArray data)
         {
             using var fileHandle = await Root!.GetPathFileHandle(path, true);
-            using var stream = await fileHandle!.CreateWritable(new FileSystemCreateWritableOptions { KeepExistingData = true });
-            await stream.SeekToEnd(fileHandle);
-            await stream.Write(data);
-            await stream.Close();
+            await fileHandle!.Append(data);
             FileSystemChanged?.Invoke(this, new FileSystemChangeEventArgs(FileSystemChangeType.Changed, path));
         }
-        /// <summary>
-        /// Append data to the file, the file will be created if it does not exist
-        /// </summary>
-        /// <param name="path"></param>
-        /// <param name="data"></param>
-        /// <returns></returns>
+        /// <inheritdoc/>
         public async Task Append(string path, byte[] data)
         {
             using var fileHandle = await Root!.GetPathFileHandle(path, true);
-            using var stream = await fileHandle!.CreateWritable(new FileSystemCreateWritableOptions { KeepExistingData = true });
-            await stream.SeekToEnd(fileHandle);
-            await stream.Write(data);
-            await stream.Close();
+            await fileHandle!.Append(data);
             FileSystemChanged?.Invoke(this, new FileSystemChangeEventArgs(FileSystemChangeType.Changed, path));
         }
+        /// <inheritdoc/>
         public async Task Append(string path, Stream data)
         {
             using var fileHandle = await Root!.GetPathFileHandle(path, true);
             await fileHandle!.Append(data);
             FileSystemChanged?.Invoke(this, new FileSystemChangeEventArgs(FileSystemChangeType.Changed, path));
         }
-        /// <summary>
-        /// Append data to the file, the file will be created if it does not exist
-        /// </summary>
-        /// <param name="path"></param>
-        /// <param name="data"></param>
-        /// <returns></returns>
+        /// <inheritdoc/>
         public async Task Append(string path, DataView data)
         {
             using var fileHandle = await Root!.GetPathFileHandle(path, true);
-            using var stream = await fileHandle!.CreateWritable(new FileSystemCreateWritableOptions { KeepExistingData = true });
-            await stream.SeekToEnd(fileHandle);
-            await stream.Write(data);
-            await stream.Close();
+            await fileHandle!.Append(data);
             FileSystemChanged?.Invoke(this, new FileSystemChangeEventArgs(FileSystemChangeType.Changed, path));
         }
-        /// <summary>
-        /// Append data to the file, the file will be created if it does not exist
-        /// </summary>
-        /// <param name="path"></param>
-        /// <param name="data"></param>
-        /// <returns></returns>
+        /// <inheritdoc/>
         public async Task Append(string path, string data)
         {
             using var fileHandle = await Root!.GetPathFileHandle(path, true);
-            using var stream = await fileHandle!.CreateWritable(new FileSystemCreateWritableOptions { KeepExistingData = true });
-            var size = await fileHandle.GetSize();
-            await stream.Seek((ulong)size);
-            await stream.Write(data);
-            await stream.Close();
+            await fileHandle!.Append(data);
             FileSystemChanged?.Invoke(this, new FileSystemChangeEventArgs(FileSystemChangeType.Changed, path));
         }
-        /// <summary>
-        /// Append data to the file, the file will be created if it does not exist
-        /// </summary>
-        /// <param name="path"></param>
-        /// <param name="data"></param>
-        /// <returns></returns>
+        /// <inheritdoc/>
         public async Task Append(string path, FileSystemWriteOptions data)
         {
             using var fileHandle = await Root!.GetPathFileHandle(path, true);
-            using var stream = await fileHandle!.CreateWritable(new FileSystemCreateWritableOptions { KeepExistingData = true });
-            await stream.Write(data);
-            await stream.Close();
+            await fileHandle!.Append(data);
             FileSystemChanged?.Invoke(this, new FileSystemChangeEventArgs(FileSystemChangeType.Changed, path));
         }
         #endregion
@@ -577,13 +505,8 @@ namespace SpawnDev.AsyncFileSystem.BrowserWASM
             var stream = new ArrayBufferStream(arrayBuffer);
             return stream;
         }
-        /// <summary>
-        /// Read the data from the file as a BlobStream Stream.<br/>
-        /// Note: Read the file from disk asynchronously. Very useful for large files. The stream ONLY supports asynchronous reading.
-        /// </summary>
-        /// <param name="path"></param>
-        /// <returns></returns>
-        public async Task<Stream> ReadBlobStream(string path)
+        /// <inheritdoc/>
+        public async Task<BlobStream> ReadBlobStream(string path)
         {
             using var fileHandle = await Root!.GetPathFileHandle(path, false);
             if (fileHandle == null) throw new FileNotFoundException();
@@ -604,11 +527,7 @@ namespace SpawnDev.AsyncFileSystem.BrowserWASM
             using var ret = await file.ArrayBuffer();
             return ret.ReadBytes();
         }
-        /// <summary>
-        /// Read the data from the file as an ArrayBuffer
-        /// </summary>
-        /// <param name="path"></param>
-        /// <returns></returns>
+        /// <inheritdoc/>
         public async Task<ArrayBuffer> ReadArrayBuffer(string path)
         {
             using var fileHandle = await Root!.GetPathFileHandle(path, false);
@@ -617,12 +536,7 @@ namespace SpawnDev.AsyncFileSystem.BrowserWASM
             var ret = await file.ArrayBuffer();
             return ret;
         }
-        /// <summary>
-        /// Returns the file as a Uint8Array
-        /// </summary>
-        /// <param name="path"></param>
-        /// <returns></returns>
-        /// <exception cref="FileNotFoundException"></exception>
+        /// <inheritdoc/>
         public async Task<Uint8Array> ReadUint8Array(string path)
         {
             using var fileHandle = await Root!.GetPathFileHandle(path, false);
@@ -631,13 +545,7 @@ namespace SpawnDev.AsyncFileSystem.BrowserWASM
             using var arrayBuffer = await file.ArrayBuffer();
             return new Uint8Array(arrayBuffer);
         }
-        /// <summary>
-        /// Returns the file as a TypedArray
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="path"></param>
-        /// <returns></returns>
-        /// <exception cref="FileNotFoundException"></exception>
+        /// <inheritdoc/>
         public async Task<T> ReadTypedArray<T>(string path) where T : TypedArray
         {
             using var fileHandle = await Root!.GetPathFileHandle(path, false);
@@ -647,12 +555,7 @@ namespace SpawnDev.AsyncFileSystem.BrowserWASM
             var ret = Activator.CreateInstance(typeof(T), arrayBuffer)!;
             return (T)ret;
         }
-        /// <summary>
-        /// Read the data from the file as File
-        /// </summary>
-        /// <param name="path"></param>
-        /// <returns></returns>
-        /// <exception cref="FileNotFoundException"></exception>
+        /// <inheritdoc/>
         public async Task<BlazorFile> ReadFile(string path)
         {
             using var fileHandle = await Root!.GetPathFileHandle(path, false);

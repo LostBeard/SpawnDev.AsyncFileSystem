@@ -6,7 +6,8 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-		<Version>1.5.0</Version>
+		<Version>1.5.1</Version>
+		<PackageReleaseNotes>v1.5.1: browser OPFS writes now route through the SpawnDev.BlazorJS 3.5.15 abort-on-throw primitives (Write/Append no longer leak the createWritable() swap file on a mid-write throw e.g. QuotaExceededError). Requires SpawnDev.BlazorJS 3.5.15+.</PackageReleaseNotes>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<EmbedAllSources>true</EmbedAllSources>
@@ -33,7 +34,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="SpawnDev.BlazorJS" Version="3.5.10" />
+		<PackageReference Include="SpawnDev.BlazorJS" Version="3.5.15" />
 	</ItemGroup>
 
 	<ItemGroup>
