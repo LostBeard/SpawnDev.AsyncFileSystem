@@ -1,13 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net8.0;net9.0;net10.0</TargetFrameworks>
+		<TargetFramework>net10.0</TargetFramework>
 		<LangVersion>latest</LangVersion>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-		<Version>1.5.1</Version>
-		<PackageReleaseNotes>v1.5.1: browser OPFS writes now route through the SpawnDev.BlazorJS 3.5.15 abort-on-throw primitives (Write/Append no longer leak the createWritable() swap file on a mid-write throw e.g. QuotaExceededError). Requires SpawnDev.BlazorJS 3.5.15+.</PackageReleaseNotes>
+		<Version>2.0.0</Version>
+		<PackageReleaseNotes>v2.0.0 (BREAKING): Browser interop moves from SpawnDev.BlazorJS to SpawnDev.SpawnJS. Now net10.0-only (SpawnJS is net10.0-only by design; the net8.0/net9.0 targets are dropped). `IAsyncFS`/`IAsyncBrowserFileSystem` API and desktop (System.IO) behavior unchanged; the OPFS wrappers just move to the `SpawnDev.SpawnJS.JSObjects`/`SpawnDev.SpawnJS.Toolbox` namespaces. See CHANGELOG.md.</PackageReleaseNotes>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<EmbedAllSources>true</EmbedAllSources>
@@ -34,7 +34,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="SpawnDev.BlazorJS" Version="3.5.15" />
+		<PackageReference Include="SpawnDev.SpawnJS" Version="2.0.9" />
 	</ItemGroup>
 
 	<ItemGroup>

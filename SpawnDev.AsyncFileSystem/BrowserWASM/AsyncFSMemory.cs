@@ -1,9 +1,9 @@
-using SpawnDev.BlazorJS;
-using SpawnDev.BlazorJS.JSObjects;
-using SpawnDev.BlazorJS.Toolbox;
+using SpawnDev.SpawnJS;
+using SpawnDev.SpawnJS.JSObjects;
+using SpawnDev.SpawnJS.Toolbox;
 using System.Text;
 using System.Text.Json;
-using BlazorFile = SpawnDev.BlazorJS.JSObjects.File;
+using BlazorFile = SpawnDev.SpawnJS.JSObjects.File;
 
 namespace SpawnDev.AsyncFileSystem.BrowserWASM
 {

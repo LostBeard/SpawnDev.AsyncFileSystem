@@ -1,8 +1,8 @@
-﻿using SpawnDev.BlazorJS;
-using SpawnDev.BlazorJS.JSObjects;
-using SpawnDev.BlazorJS.Toolbox;
+﻿using SpawnDev.SpawnJS;
+using SpawnDev.SpawnJS.JSObjects;
+using SpawnDev.SpawnJS.Toolbox;
 using System.Text.Json;
-using BlazorFile = SpawnDev.BlazorJS.JSObjects.File;
+using BlazorFile = SpawnDev.SpawnJS.JSObjects.File;
 
 namespace SpawnDev.AsyncFileSystem.BrowserWASM
 {
@@ -13,7 +13,7 @@ namespace SpawnDev.AsyncFileSystem.BrowserWASM
     {
         public Task Ready => _Ready ??= InitAsync();
         Task? _Ready;
-        BlazorJSRuntime JS;
+        SpawnJSRuntime JS;
         public StorageManager Storage { get; private set; }
         public event EventHandler<FileSystemChangeEventArgs> FileSystemChanged = default!;
         FileSystemDirectoryHandle? Root;
@@ -21,7 +21,7 @@ namespace SpawnDev.AsyncFileSystem.BrowserWASM
         /// Creates new instance
         /// </summary>
         /// <param name="js"></param>
-        public AsyncFSFileSystemDirectoryHandle(BlazorJSRuntime js)
+        public AsyncFSFileSystemDirectoryHandle(SpawnJSRuntime js)
         {
             JS = js;
             using var navigator = JS.Get<Navigator>("navigator");
@@ -30,14 +30,14 @@ namespace SpawnDev.AsyncFileSystem.BrowserWASM
         public static async Task<AsyncFSFileSystemDirectoryHandle> Create(FileSystemDirectoryHandle root)
         {
             if (root == null) throw new NullReferenceException(nameof(root));
-            var ret = new AsyncFSFileSystemDirectoryHandle(BlazorJSRuntime.JS);
+            var ret = new AsyncFSFileSystemDirectoryHandle(SpawnJSRuntime.Instance);
             ret.Root = root;
             await ret.Ready;
             return ret;
         }
         public static async Task<AsyncFSFileSystemDirectoryHandle> Create()
         {
-            var ret = new AsyncFSFileSystemDirectoryHandle(BlazorJSRuntime.JS);
+            var ret = new AsyncFSFileSystemDirectoryHandle(SpawnJSRuntime.Instance);
             await ret.Ready;
             return ret;
         }
@@ -48,10 +48,10 @@ namespace SpawnDev.AsyncFileSystem.BrowserWASM
         /// <returns></returns>
         public static async Task<AsyncFSFileSystemDirectoryHandle> Create(string rootPath)
         {
-            using var navigator = BlazorJSRuntime.JS.Get<Navigator>("navigator");
+            using var navigator = SpawnJSRuntime.Instance.Get<Navigator>("navigator");
             using var storage = navigator.Storage;
             var rootDir = await storage.GetDirectory();
-            var ret = new AsyncFSFileSystemDirectoryHandle(BlazorJSRuntime.JS);
+            var ret = new AsyncFSFileSystemDirectoryHandle(SpawnJSRuntime.Instance);
             var root = string.IsNullOrEmpty(rootPath) ? rootDir : await rootDir.GetPathDirectoryHandle(rootPath);
             ret.Root = root;
             await ret.Ready;
