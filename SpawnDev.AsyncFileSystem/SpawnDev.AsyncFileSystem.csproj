@@ -6,8 +6,8 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-		<Version>2.1.0</Version>
-		<PackageReleaseNotes>v2.1.0 - Dependency update</PackageReleaseNotes>
+		<Version>2.1.1</Version>
+		<PackageReleaseNotes>v2.1.1 - Dependency update</PackageReleaseNotes>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<EmbedAllSources>true</EmbedAllSources>
@@ -34,7 +34,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="SpawnDev.SpawnJS" Version="2.1.0" />
+		<PackageReference Include="SpawnDev.SpawnJS" Version="2.1.7" />
 	</ItemGroup>
 
 	<ItemGroup>
