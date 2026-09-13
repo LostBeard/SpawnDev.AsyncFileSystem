@@ -13,31 +13,28 @@ namespace SpawnDev.AsyncFileSystem.BrowserWASM
     {
         public Task Ready => _Ready ??= InitAsync();
         Task? _Ready;
-        SpawnJSRuntime JS;
-        public StorageManager Storage { get; private set; }
+        static SpawnJSRuntime JS => SpawnJSRuntime.Instance;
         public event EventHandler<FileSystemChangeEventArgs> FileSystemChanged = default!;
-        FileSystemDirectoryHandle? Root;
+        public FileSystemDirectoryHandle? Root { get; private set; }
         /// <summary>
         /// Creates new instance
         /// </summary>
         /// <param name="js"></param>
-        public AsyncFSFileSystemDirectoryHandle(SpawnJSRuntime js)
+        public AsyncFSFileSystemDirectoryHandle()
         {
-            JS = js;
-            using var navigator = JS.Get<Navigator>("navigator");
-            Storage = navigator.Storage;
+            
         }
         public static async Task<AsyncFSFileSystemDirectoryHandle> Create(FileSystemDirectoryHandle root)
         {
             if (root == null) throw new NullReferenceException(nameof(root));
-            var ret = new AsyncFSFileSystemDirectoryHandle(SpawnJSRuntime.Instance);
+            var ret = new AsyncFSFileSystemDirectoryHandle();
             ret.Root = root;
             await ret.Ready;
             return ret;
         }
         public static async Task<AsyncFSFileSystemDirectoryHandle> Create()
         {
-            var ret = new AsyncFSFileSystemDirectoryHandle(SpawnJSRuntime.Instance);
+            var ret = new AsyncFSFileSystemDirectoryHandle();
             await ret.Ready;
             return ret;
         }
@@ -48,27 +45,28 @@ namespace SpawnDev.AsyncFileSystem.BrowserWASM
         /// <returns></returns>
         public static async Task<AsyncFSFileSystemDirectoryHandle> Create(string rootPath)
         {
-            using var navigator = SpawnJSRuntime.Instance.Get<Navigator>("navigator");
+            using var navigator = JS.Get<Navigator>("navigator");
             using var storage = navigator.Storage;
             var rootDir = await storage.GetDirectory();
-            var ret = new AsyncFSFileSystemDirectoryHandle(SpawnJSRuntime.Instance);
-            var root = string.IsNullOrEmpty(rootPath) ? rootDir : await rootDir.GetPathDirectoryHandle(rootPath);
+            var ret = new AsyncFSFileSystemDirectoryHandle();
+            var root = string.IsNullOrEmpty(rootPath) ? rootDir : await rootDir.GetPathDirectoryHandle(rootPath, true);
             ret.Root = root;
             await ret.Ready;
             return ret;
         }
         async Task InitAsync()
         {
-            if (Root == null)
+            if (Root == null && JS.IsBrowser)
             {
-                Root = await Storage.GetDirectory();
+                using var navigator = JS.Get<Navigator>("navigator");
+                using var storage = navigator.Storage;
+                Root = await storage.GetDirectory();
             }
         }
         #region  Directory
         /// <summary>
         /// Returns the directory names in the given relative path
         /// </summary>
-        /// <param name="_this"></param>
         /// <param name="path"></param>
         /// <returns></returns>
         public async Task<List<string>> GetDirectories(string path)
@@ -585,24 +583,20 @@ namespace SpawnDev.AsyncFileSystem.BrowserWASM
             return string.IsNullOrEmpty(path) ? null : await Root!.GetPathFileHandle(path, create);
         }
 
-        public async Task<Stream> GetWriteStream(string path)
+        public async Task<Stream> GetWriteStream(string path, FileMode fileMode = FileMode.OpenOrCreate, OPFSFileOptions fileOptions = OPFSFileOptions.Auto)
         {
-            using var fileHandle = await Root!.GetPathFileHandle(path, true);
-            var stream = await FileSystemHandleWritableStream.Create(fileHandle!, true);
-            return stream;
+            return await OpenStream(path, fileMode, FileAccess.Write, fileOptions);
         }
 
-        /// <summary>
-        /// Read the data from the file as an ArrayBufferStream Stream.<br/>
-        /// Note: The entire file contents are read into memory. The stream supports synchronous reading.
-        /// </summary>
-        /// <param name="path"></param>
-        /// <returns></returns>
-        public async Task<Stream> GetReadStream(string path)
+        public async Task<Stream> GetReadStream(string path, FileMode fileMode = FileMode.Open, OPFSFileOptions fileOptions = OPFSFileOptions.Auto)
         {
-            var stream = await ReadStream(path);
-            return stream;
+            return await OpenStream(path, fileMode, FileAccess.Read, fileOptions);
         }
         #endregion
+
+        public async Task<Stream> OpenStream(string path, FileMode fileMode = FileMode.Open, FileAccess fileAccess = FileAccess.Read, OPFSFileOptions fileOptions = OPFSFileOptions.Auto)
+        {
+            return await Root!.OpenPathStream(path, fileMode, fileAccess, fileOptions);
+        }
     }
 }

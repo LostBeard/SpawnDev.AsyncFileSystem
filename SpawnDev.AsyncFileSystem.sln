@@ -1,9 +1,20 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 18
-VisualStudioVersion = 18.4.11620.152 stable
+VisualStudioVersion = 18.4.11620.152
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpawnDev.AsyncFileSystem", "SpawnDev.AsyncFileSystem\SpawnDev.AsyncFileSystem.csproj", "{1D338697-F23B-FF83-6CB0-6047E1A34F6D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpawnDev.AsyncFileSystem.Demo", "SpawnDev.AsyncFileSystem.Demo\SpawnDev.AsyncFileSystem.Demo.csproj", "{2CD37F32-4F2D-47CD-ADA6-6220286FD49F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9C6D28A2-029F-4238-B74F-3B65E4CBB216}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpawnDev.AsyncFileSystem.Browser", "SpawnDev.AsyncFileSystem.Browser\SpawnDev.AsyncFileSystem.Browser.csproj", "{9C288104-1663-455A-95A3-9E66A83BCB1C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpawnDev.AsyncFileSystem.DemoConsole", "SpawnDev.AsyncFileSystem.DemoConsole\SpawnDev.AsyncFileSystem.DemoConsole.csproj", "{19BCF326-105E-4A7F-A256-B811215AC35A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +26,18 @@ Global
 		{1D338697-F23B-FF83-6CB0-6047E1A34F6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1D338697-F23B-FF83-6CB0-6047E1A34F6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1D338697-F23B-FF83-6CB0-6047E1A34F6D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2CD37F32-4F2D-47CD-ADA6-6220286FD49F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2CD37F32-4F2D-47CD-ADA6-6220286FD49F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2CD37F32-4F2D-47CD-ADA6-6220286FD49F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2CD37F32-4F2D-47CD-ADA6-6220286FD49F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C288104-1663-455A-95A3-9E66A83BCB1C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C288104-1663-455A-95A3-9E66A83BCB1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C288104-1663-455A-95A3-9E66A83BCB1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C288104-1663-455A-95A3-9E66A83BCB1C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{19BCF326-105E-4A7F-A256-B811215AC35A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19BCF326-105E-4A7F-A256-B811215AC35A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19BCF326-105E-4A7F-A256-B811215AC35A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19BCF326-105E-4A7F-A256-B811215AC35A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

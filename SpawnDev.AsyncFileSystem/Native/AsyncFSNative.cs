@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using SpawnDev.SpawnJS.Toolbox;
+using System.Text.Json;
 using File = System.IO.File;
 
 namespace SpawnDev.AsyncFileSystem.Native
@@ -297,17 +298,26 @@ namespace SpawnDev.AsyncFileSystem.Native
             await File.WriteAllTextAsync(fPath, json);
         }
 
-        public async Task<Stream> GetWriteStream(string path)
+        public async Task<Stream> GetWriteStream(string path, FileMode fileMode = FileMode.OpenOrCreate, OPFSFileOptions fileOptions = OPFSFileOptions.Auto)
         {
-            var fPath = GetFullPath(path, true);
-            var fileStream = new FileStream(fPath, FileMode.OpenOrCreate, FileAccess.Write, FileShare.ReadWrite);
-            return fileStream;
+            return await OpenStream(path, fileMode, FileAccess.Write, fileOptions);
         }
 
-        public async Task<Stream> GetReadStream(string path)
+        public async Task<Stream> GetReadStream(string path, FileMode fileMode = FileMode.Open, OPFSFileOptions fileOptions = OPFSFileOptions.Auto)
         {
-            var stream = await ReadStream(path);
-            return stream;
+            return await OpenStream(path, fileMode, FileAccess.Read, fileOptions);
+        }
+
+        public async Task<Stream> OpenStream(string path, FileMode fileMode = FileMode.Open, FileAccess fileAccess = FileAccess.Read, OPFSFileOptions fileOptions = OPFSFileOptions.Auto)
+        {
+            var fPath = GetFullPath(path, true);
+            var ret = new FileStream(fPath, new FileStreamOptions
+            {
+                Options = (fileOptions & OPFSFileOptions.SyncRequired) == 0 ? FileOptions.Asynchronous : FileOptions.None,
+                Mode = fileMode,
+                Access = fileAccess,
+            });
+            return ret;
         }
     }
 }
