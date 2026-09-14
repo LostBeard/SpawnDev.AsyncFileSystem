@@ -14,9 +14,9 @@
 		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="10.0.12" />
 		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="10.0.12" PrivateAssets="all" />
 		<PackageReference Include="SpawnDev.SpawnJS.Blazor" Version="2.1.17" />
-		<PackageReference Include="SpawnDev.SpawnJS.WebWorkers" Version="2.1.17" />
-		<PackageReference Include="SpawnDev.SpawnJS.RazorRenderer" Version="2.1.6" />
-		<PackageReference Include="SpawnDev.SpawnJS.RazorUI" Version="2.1.6" />
+		<PackageReference Include="SpawnDev.SpawnJS.WebWorkers" Version="2.1.18" />
+		<PackageReference Include="SpawnDev.SpawnJS.RazorRenderer" Version="2.1.9" />
+		<PackageReference Include="SpawnDev.SpawnJS.RazorUI" Version="2.1.9" />
 	</ItemGroup>
 
 	<ItemGroup>
