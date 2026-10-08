@@ -15,7 +15,15 @@ namespace SpawnDev.AsyncFileSystem.Native
             Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
             AppDomain.CurrentDomain.FriendlyName);
 
-        public event EventHandler<FileSystemChangeEventArgs> FileSystemChanged;
+        /// <summary>
+        /// Raised after this instance creates, writes, appends to or removes an entry - the same points and
+        /// change types as the browser (OPFS) implementation, so a subscriber behaves the same on both.
+        /// Changes made to the folder by other processes are not observed.
+        /// </summary>
+        public event EventHandler<FileSystemChangeEventArgs>? FileSystemChanged;
+
+        void OnFileSystemChanged(FileSystemChangeType changeType, string path)
+            => FileSystemChanged?.Invoke(this, new FileSystemChangeEventArgs(changeType, path));
 
         private string _basePath = "";
 
@@ -101,17 +109,21 @@ namespace SpawnDev.AsyncFileSystem.Native
             using var fileStream = new FileStream(fPath, FileMode.Append, FileAccess.Write);
             // using FileMode.Append auto sets the stream position to the end
             await data.CopyToAsync(fileStream);
+            await fileStream.DisposeAsync();
+            OnFileSystemChanged(FileSystemChangeType.Changed, path);
         }
 
         public Task Append(string path, string data)
         {
             var fPath = GetFullPath(path, true);
             File.AppendAllText(fPath, data);
+            OnFileSystemChanged(FileSystemChangeType.Changed, path);
             return Task.CompletedTask;
         }
 
         public async Task Append(string path, byte[] data)
         {
+            // raises Changed once, through Append(string, Stream)
             using var source = new MemoryStream(data);
             await Append(path, source);
         }
@@ -120,6 +132,7 @@ namespace SpawnDev.AsyncFileSystem.Native
         {
             var fPath = GetFullPath(path, true);
             Directory.CreateDirectory(fPath);
+            OnFileSystemChanged(FileSystemChangeType.Created, path);
             return Task.CompletedTask;
         }
 
@@ -269,6 +282,11 @@ namespace SpawnDev.AsyncFileSystem.Native
             {
                 Directory.Delete(fPath, true);
             }
+            else
+            {
+                return Task.CompletedTask;
+            }
+            OnFileSystemChanged(FileSystemChangeType.Deleted, path);
             return Task.CompletedTask;
         }
 
@@ -277,18 +295,23 @@ namespace SpawnDev.AsyncFileSystem.Native
             var fPath = GetFullPath(path, true);
             using var fileStream = new FileStream(fPath, FileMode.Create, FileAccess.Write);
             await data.CopyToAsync(fileStream);
+            // closed before the event, so a subscriber that reads the file sees all of it
+            await fileStream.DisposeAsync();
+            OnFileSystemChanged(FileSystemChangeType.Changed, path);
         }
 
         public async Task Write(string path, string data)
         {
             var fPath = GetFullPath(path, true);
             await File.WriteAllTextAsync(fPath, data);
+            OnFileSystemChanged(FileSystemChangeType.Changed, path);
         }
 
         public async Task Write(string path, byte[] data)
         {
             var fPath = GetFullPath(path, true);
             await File.WriteAllBytesAsync(fPath, data);
+            OnFileSystemChanged(FileSystemChangeType.Changed, path);
         }
 
         public async Task WriteJSON(string path, object data, JsonSerializerOptions? jsonSerializerOptions = null)
@@ -296,6 +319,7 @@ namespace SpawnDev.AsyncFileSystem.Native
             var fPath = GetFullPath(path, true);
             var json = JsonSerializer.Serialize(data, jsonSerializerOptions);
             await File.WriteAllTextAsync(fPath, json);
+            OnFileSystemChanged(FileSystemChangeType.Changed, path);
         }
 
         public async Task<Stream> GetWriteStream(string path, FileMode fileMode = FileMode.OpenOrCreate, OPFSFileOptions fileOptions = OPFSFileOptions.Auto)

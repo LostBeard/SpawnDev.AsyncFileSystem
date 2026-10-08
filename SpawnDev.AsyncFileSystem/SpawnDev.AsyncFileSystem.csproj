@@ -6,8 +6,8 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-		<Version>2.2.0</Version>
-		<PackageReleaseNotes>v2.2.0 - OPFS Stream update</PackageReleaseNotes>
+		<Version>2.3.0</Version>
+		<PackageReleaseNotes>v2.3.0 - SpawnDev.SpawnJS 3 (one crossing per call); consumers pinning SpawnJS 2.x get NU1605, move to 3.0.2+. Fixed: AsyncFSNative never raised IAsyncFS.FileSystemChanged; it now raises Created/Changed/Deleted at the same points as the browser (OPFS) implementation, after the file is closed. ASyncFSEntryInfo strings default to "" instead of null.</PackageReleaseNotes>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<EmbedAllSources>true</EmbedAllSources>
@@ -34,7 +34,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="SpawnDev.SpawnJS" Version="2.1.17" />
+		<PackageReference Include="SpawnDev.SpawnJS" Version="3.0.2" />
 	</ItemGroup>
 
 	<ItemGroup>

@@ -19,7 +19,6 @@ namespace SpawnDev.AsyncFileSystem.BrowserWASM
         /// <summary>
         /// Creates new instance
         /// </summary>
-        /// <param name="js"></param>
         public AsyncFSFileSystemDirectoryHandle()
         {
             
