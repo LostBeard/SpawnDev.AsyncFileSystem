@@ -11,10 +11,11 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="10.0.12" />
+		<!-- No Microsoft.AspNetCore.Components.WebAssembly / SpawnDev.SpawnJS.Blazor: this app boots through SpawnJS +
+		     RazorRenderer from main.classic.js, not through blazor.webassembly.js. Referencing the Blazor runtime makes
+		     SpawnDev.SpawnJS.WebWorkers (2.2.3+) treat it as a Blazor app and skip main.classic.js, and index.html 404s. -->
 		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="10.0.12" PrivateAssets="all" />
-		<PackageReference Include="SpawnDev.SpawnJS.Blazor" Version="3.0.3" />
-		<PackageReference Include="SpawnDev.SpawnJS.WebWorkers" Version="2.2.2" />
+		<PackageReference Include="SpawnDev.SpawnJS.WebWorkers" Version="2.2.4" />
 		<PackageReference Include="SpawnDev.SpawnJS.RazorRenderer" Version="2.2.2" />
 		<PackageReference Include="SpawnDev.SpawnJS.RazorUI" Version="2.2.2" />
 	</ItemGroup>

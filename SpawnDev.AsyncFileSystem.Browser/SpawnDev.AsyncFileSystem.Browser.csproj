@@ -9,7 +9,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="SpawnDev.SpawnJS" Version="3.0.2" />
-		<PackageReference Include="SpawnDev.SpawnJS.WebWorkers" Version="2.2.2" />
+		<PackageReference Include="SpawnDev.SpawnJS.WebWorkers" Version="2.2.4" />
 	</ItemGroup>
 
 	<ItemGroup>
